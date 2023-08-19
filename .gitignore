@@ -1,2 +1,6 @@
+__pycache__/
+.idea/
+.pytest_cache/
+.vscode/
+```
 
-__pycache__/pySeleniumTests.cpython-311-pytest-7.4.0.pyc
