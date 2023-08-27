@@ -16,16 +16,20 @@ In Behave, tests are written in a natural language format called Gherkin. Each t
 - **When:** The action or event that occurs.
 - **Then:** The expected outcome or result.
 
+For details on how this translate into Python, please review the official documentation: https://behave.readthedocs.io/en/stable/gherkin.html#feature-testing-layout
+
 ## Setup and Dependencies:
 
 Before you can start running tests, ensure you have the following dependencies installed:
 
-- Python
-- Behave
-- Requests
-- Selenium
+- Python: You can download Python from the official website: https://www.python.org/downloads/
+  - For Python versions 3.4 and later, utilize "pip" to manage package installations and dependencies. If you're working with older Python versions, you can install pip using these instructions: https://pip.pypa.io/en/stable/installation/
+  
+  - Behave
+  - Requests
+  - Selenium
 
-You can install these dependencies using the following command:
+With pip, You can install these dependencies using the "pip install" command, ie;
 
 ```bash
 pip install behave requests selenium
@@ -33,19 +37,20 @@ pip install behave requests selenium
 
 ## Running Tests:
 
-To run the tests included in this repository, navigate to the project's root directory and execute the following command:
+To run the scenarios included in this repository, navigate to the project's root directory and execute the following command (API feature, for example):
 
 ```bash
-behave
+behave features/apiCRUD.feature
 ```
 
-Behave will automatically discover and execute the Gherkin scenarios defined in the project.
+Alternatively, you can run tests based on how they are tagged. The API scenarios are tagged with @api and FE tests as @selenium. An example of running the @api tagged scenarios:
+
+```bash
+behave --tags=@api
+```
 
 ## Resources:
 
-- **Gherkin:** Gherkin is a simple language used to write human-readable descriptions of software behavior. It forms the basis for writing Behave test scenarios.
-- **Cucumber:** Cucumber is a tool that supports the execution of Gherkin scenarios and promotes collaboration between team members with varying roles.
-
 As the development of this project progresses, this README will be continuously updated to provide more detailed information and additional resources.
 
-Thank you for your interest in PythonBDD! If you have any questions or suggestions, please feel free to contribute or reach out to the project maintainers.
+Thank you for your interest in PythonBDD! If you have any questions or suggestions, please feel free reach out to me directly.
