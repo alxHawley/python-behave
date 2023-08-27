@@ -1,25 +1,51 @@
-Python Selenium
+# PythonBDD Test Repository
 
-This repository is dedicated to experimenting with Python and Selenium tests. It serves as a sandbox for learning and experimentation, helping me enhance my coding and testing skills.
+Welcome to the PythonBDD project repository! This repository is dedicated to housing tests developed using Behave, a Python-based Behavior-Driven Development (BDD) testing framework. The tests within this repository cover a range of scenarios, including API CRUD operations, as well as UI interactions, leveraging Selenium.
 
-Requirements:
+## What is BDD and Behave?
 
-Python: You can download Python from the official website: https://www.python.org/downloads/
+Behavior-Driven Development (BDD) is a software development methodology that emphasizes collaboration between developers, testers, and domain experts to ensure the alignment of software behavior with business requirements. Behave is a Python framework that enables BDD by allowing the creation of human-readable test scenarios and automating their execution.
 
-For Python versions 3.4 and later, utilize PIP to manage package installations and dependencies. If you're working with older Python versions, you can install PIP using these instructions: https://pip.pypa.io/en/stable/installation/
+## Key Components of a Behave Test:
 
-Python Modules:
+In Behave, tests are written in a natural language format called Gherkin. Each test is composed of the following key components:
 
-    requests(https://pypi.org/project/requests/): Install with: pip install requests
-    jsonschema(https://pypi.org/project/jsonschema/): Install with: pip install jsonschema
+- **Feature:** A high-level description of the functionality being tested.
+- **Scenario:** A specific test case described in a user-readable manner.
+- **Given:** The initial context or setup for the scenario.
+- **When:** The action or event that occurs.
+- **Then:** The expected outcome or result.
 
-Selenium: Install Selenium using: pip install selenium
-Details can be found here: https://pypi.org/project/selenium/
+## Setup and Dependencies:
 
-Selenium WebDriver: These tests are designed for Chrome, so it's necessary to install ChromeDriver. The version of ChromeDriver should match your current Chrome version. Find the ChromeDriver versions and additional information here: https://chromedriver.chromium.org/downloads.
+Before you can start running tests, ensure you have the following dependencies installed:
 
-For optimal results, consider updating Chrome to the latest version before selecting a compatible ChromeDriver version from: https://googlechromelabs.github.io/chrome-for-testing/
+- Python
+- Behave
+- Requests
+- Selenium
 
-After downloading ChromeDriver, place the chromedriver.exe file in the same directory as your browser executable.
+You can install these dependencies using the following command:
 
-Alternatively, you have the option to install other browser drivers such as GeckoDriver for Firefox. Modify the tests accordingly with the information provided here: https://www.selenium.dev/documentation/webdriver/browsers/
+```bash
+pip install behave requests selenium
+```
+
+## Running Tests:
+
+To run the tests included in this repository, navigate to the project's root directory and execute the following command:
+
+```bash
+behave
+```
+
+Behave will automatically discover and execute the Gherkin scenarios defined in the project.
+
+## Resources:
+
+- **Gherkin:** Gherkin is a simple language used to write human-readable descriptions of software behavior. It forms the basis for writing Behave test scenarios.
+- **Cucumber:** Cucumber is a tool that supports the execution of Gherkin scenarios and promotes collaboration between team members with varying roles.
+
+As the development of this project progresses, this README will be continuously updated to provide more detailed information and additional resources.
+
+Thank you for your interest in PythonBDD! If you have any questions or suggestions, please feel free to contribute or reach out to the project maintainers.
