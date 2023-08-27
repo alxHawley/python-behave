@@ -24,10 +24,9 @@ Before you can start running tests, ensure you have the following dependencies i
 
 - Python: You can download Python from the official website: https://www.python.org/downloads/
   - For Python versions 3.4 and later, utilize "pip" to manage package installations and dependencies. If you're working with older Python versions, you can install pip using these instructions: https://pip.pypa.io/en/stable/installation/
-  
-  - Behave
-  - Requests
-  - Selenium
+    - Behave
+    - Requests
+    - Selenium
 
 With pip, You can install these dependencies using the "pip install" command, ie;
 
