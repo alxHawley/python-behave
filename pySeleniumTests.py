@@ -49,3 +49,4 @@ def test_schema():
         weather_schema = json.loads(f.read())
     weather_data = response.json()
     validate(instance=weather_data, schema=weather_schema)
+
