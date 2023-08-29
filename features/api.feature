@@ -35,3 +35,6 @@ Background:
   Scenario: Deleting a booking
     When a DELETE request is made with the booking ID
     Then the booking is deleted successfully
+
+  # create scenarios forGetBookingIds, GetBookingIdsWithParams, GetBookingIdsWithInvalidParams
+  # params: firstmane, lastname, checkin, checkout
