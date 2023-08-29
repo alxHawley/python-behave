@@ -24,6 +24,7 @@ Before you can start running tests, ensure you have the following dependencies i
 
 - Python: You can download Python from the official website: https://www.python.org/downloads/
   - For Python versions 3.4 and later, utilize "pip" to manage package installations and dependencies. If you're working with older Python versions, you can install pip using these instructions: https://pip.pypa.io/en/stable/installation/
+
     - Behave
     - Requests
     - Selenium
@@ -39,10 +40,10 @@ pip install behave requests selenium
 To run the scenarios included in this repository, navigate to the project's root directory and execute the following command (API feature, for example):
 
 ```bash
-behave features/apiCRUD.feature
+behave features/api.feature
 ```
 
-Alternatively, you can run tests based on how they are tagged. The API scenarios are tagged with @api and FE tests as @selenium. An example of running the @api tagged scenarios:
+Alternatively, you can run tests based on how they are tagged. The API scenarios are tagged with @api and FE tests as @ui. An example of running the @api tagged scenarios:
 
 ```bash
 behave --tags=@api
