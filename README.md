@@ -1,25 +1,55 @@
-Python Selenium
+# PythonBDD Test Repository
 
-This repository is dedicated to experimenting with Python and Selenium tests. It serves as a sandbox for learning and experimentation, helping me enhance my coding and testing skills.
+Welcome to the PythonBDD project repository! This repository is dedicated to housing tests developed using Behave, a Python-based Behavior-Driven Development (BDD) testing framework. The tests within this repository cover a range of scenarios, including API CRUD operations, as well as UI interactions, leveraging Selenium.
 
-Requirements:
+## What is BDD and Behave?
 
-Python: You can download Python from the official website: https://www.python.org/downloads/
+Behavior-Driven Development (BDD) is a software development methodology that emphasizes collaboration between developers, testers, and domain experts to ensure the alignment of software behavior with business requirements. Behave is a Python framework that enables BDD by allowing the creation of human-readable test scenarios and automating their execution.
 
-For Python versions 3.4 and later, utilize PIP to manage package installations and dependencies. If you're working with older Python versions, you can install PIP using these instructions: https://pip.pypa.io/en/stable/installation/
+## Key Components of a Behave Test:
 
-Python Modules:
+In Behave, tests are written in a natural language format called Gherkin. Each test is composed of the following key components:
 
-    requests(https://pypi.org/project/requests/): Install with: pip install requests
-    jsonschema(https://pypi.org/project/jsonschema/): Install with: pip install jsonschema
+- **Feature:** A high-level description of the functionality being tested.
+- **Scenario:** A specific test case described in a user-readable manner.
+- **Given:** The initial context or setup for the scenario.
+- **When:** The action or event that occurs.
+- **Then:** The expected outcome or result.
 
-Selenium: Install Selenium using: pip install selenium
-Details can be found here: https://pypi.org/project/selenium/
+For details on how this translate into Python, please review the official documentation: https://behave.readthedocs.io/en/stable/gherkin.html#feature-testing-layout
 
-Selenium WebDriver: These tests are designed for Chrome, so it's necessary to install ChromeDriver. The version of ChromeDriver should match your current Chrome version. Find the ChromeDriver versions and additional information here: https://chromedriver.chromium.org/downloads.
+## Setup and Dependencies:
 
-For optimal results, consider updating Chrome to the latest version before selecting a compatible ChromeDriver version from: https://googlechromelabs.github.io/chrome-for-testing/
+Before you can start running tests, ensure you have the following dependencies installed:
 
-After downloading ChromeDriver, place the chromedriver.exe file in the same directory as your browser executable.
+- Python: You can download Python from the official website: https://www.python.org/downloads/
+  - For Python versions 3.4 and later, utilize "pip" to manage package installations and dependencies. If you're working with older Python versions, you can install pip using these instructions: https://pip.pypa.io/en/stable/installation/
+    - Behave
+    - Requests
+    - Selenium
 
-Alternatively, you have the option to install other browser drivers such as GeckoDriver for Firefox. Modify the tests accordingly with the information provided here: https://www.selenium.dev/documentation/webdriver/browsers/
+With pip, You can install these dependencies using the "pip install" command, ie;
+
+```bash
+pip install behave requests selenium
+```
+
+## Running Tests:
+
+To run the scenarios included in this repository, navigate to the project's root directory and execute the following command (API feature, for example):
+
+```bash
+behave features/apiCRUD.feature
+```
+
+Alternatively, you can run tests based on how they are tagged. The API scenarios are tagged with @api and FE tests as @selenium. An example of running the @api tagged scenarios:
+
+```bash
+behave --tags=@api
+```
+
+## Resources:
+
+As the development of this project progresses, this README will be continuously updated to provide more detailed information and additional resources.
+
+Thank you for your interest in PythonBDD! If you have any questions or suggestions, please feel free reach out to me directly.
