@@ -1,4 +1,4 @@
-Feature: Hotel bookings management with Restful Booker API
+Feature: Hotel bookings management with Restful Booker API  
   As an API client
   I want to create, update, and delete hotel bookings
   So that I can manage bookings with Restful Booker
@@ -38,3 +38,4 @@ Background:
 
   # create scenarios forGetBookingIds, GetBookingIdsWithParams, GetBookingIdsWithInvalidParams
   # params: firstmane, lastname, checkin, checkout
+  
