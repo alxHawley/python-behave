@@ -3,9 +3,11 @@
 Welcome to my PythonBDD project repository! This repository is dedicated to housing tests developed using Behave, a Python-based Behavior-Driven Development (BDD) testing framework. The tests within this repository including API CRUD operations, as well as UI interactions, leveraging Selenium.
 
 Currently, the backend API tests are testing against: https://restful-booker.herokuapp.com/apidoc/index.html
+
 This is a mock hotel booking API
 
 For FE selenium tests: https://www.saucedemo.com/
+
 This is a mock e-commerce site
 
 ## What is BDD and Behave?
