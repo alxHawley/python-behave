@@ -34,7 +34,7 @@ Feature: User login on saucedemo
     Then the user is logged out
 
   @login @performance
-  Scenario: After login, the product page should load in less than 1 seconds
+  Scenario: After login, the product page should load in less than 1 second
     Given a user is on the login page
     When the user submits credentials "performance_glitch_user" and "secret_sauce"
     Then the product page should load in less than 1 second
