@@ -1,6 +1,6 @@
 Feature: User login on saucedemo
   As a user of saucedemo.com
-  I want to be able to interact with the website
+  I want to be able to log in to the website
   So that I can buy some products
 
 
@@ -25,7 +25,7 @@ Feature: User login on saucedemo
     Then the user is not able to login
     And the user should see an error message "Epic sadface: Sorry, this user has been locked out."
 
-  @ui @login
+  @ui @login @e2e
   Scenario: User logout
     Given a user is on the login page
     When the user submits credentials "standard_user" and "secret_sauce"

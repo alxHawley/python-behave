@@ -1,5 +1,6 @@
-import os
 import json
+import os
+
 
 def load_schema(schema_filename):
     script_directory = os.path.dirname(os.path.abspath(__file__))
