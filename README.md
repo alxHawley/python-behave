@@ -1,6 +1,6 @@
 # PythonBDD Test Repository
 
-Welcome to my Python BDD project. This test automation project is developed with Behave, a Python-based Behavior-Driven Development (BDD) testing framework. Currently there are 3 features that include scenarios for API testing and UI testing with Selenium
+Welcome to my Python BDD project. This test automation project is developed with Behave, a Python-based Behavior-Driven Development (BDD) testing framework. Currently there are 3 features that include 10 scenarios across API tests and UI tests with Selenium.
 
 API used for backend automation: https://restful-booker.herokuapp.com/apidoc/index.html
 
