@@ -10,6 +10,7 @@ from dateutil.parser import parse
 import jsonschema
 from utils.schema_loader import load_schema
 
+
 BASE_URL = "https://restful-booker.herokuapp.com/"
 BOOKING_ENDPOINT = "booking/"
 AUTH_ENDPOINT = "auth"
@@ -26,7 +27,6 @@ headers_with_cookie = {
     "Accept": "application/json",
     "Cookie": ""
 }
-
 
 @given('a hotel booking is created')
 def step_create_booking(context):
@@ -52,14 +52,12 @@ def step_create_booking(context):
                 "checkout": checkout_date
             },
             "additionalneeds": context.additionalneeds
-        }, timeout=5
-        
-                                         )
+        }, timeout=5)
         # Store the response values for bookingid and booking
         context.bookingid = str(context.response.json()["bookingid"])
         context.booking = context.response.json()
-
-        assert context.response.status_code == 200  # assert that the booking was created successfully
+        # assert that the booking was created successfully
+        assert context.response.status_code == 200  
 
 
 @when('the booking details are provided')
@@ -67,7 +65,6 @@ def step_validate_booking(context):
     """Validate the booking details against the schema"""
     # Load the JSON schema from the file
     schema = load_schema("booking_id_schema.json")
-
     # Validate the entire response context against the schema
     jsonschema.validate(context.response.json(), schema)
 
@@ -75,7 +72,8 @@ def step_validate_booking(context):
 @when('a GET request is made with the booking ID')
 def step_get_booking(context):
     """Get the booking details using the booking ID"""
-    context.response = requests.get(BASE_URL + BOOKING_ENDPOINT + context.bookingid, headers=headers, timeout=5)
+    context.response = requests.get(BASE_URL + BOOKING_ENDPOINT + context.bookingid,
+                                    headers=headers, timeout=5)
     context.booking = context.response.json()
 
 
@@ -111,8 +109,8 @@ def step_update_booking(context):
 
         # Send the PUT request and store the response
         headers_with_cookie["Cookie"] = f"token={context.token}"  # add the token to the headers
-        response = requests.put(BASE_URL + BOOKING_ENDPOINT + context.bookingid, headers=headers_with_cookie, json=data,
-                                timeout=5)
+        response = requests.put(BASE_URL + BOOKING_ENDPOINT + context.bookingid,
+                                headers=headers_with_cookie, json=data, timeout=5)
         context.response = response
 
         # Update the context.booking dictionary with the new booking data
@@ -126,7 +124,7 @@ def step_partial_update_booking(context):
     booking_id = context.bookingid
     new_booking = context.table[0]
 
-    # Construct the PATCH request data    
+    # Construct the PATCH request data   
     data = {}
     if "totalprice" in new_booking:
         data["totalprice"] = int(new_booking["totalprice"])
@@ -141,8 +139,8 @@ def step_partial_update_booking(context):
 
     # Send the PATCH request and store the response
     headers_with_cookie["Cookie"] = f"token={context.token}"  # add the token to the headers
-    response = requests.patch(BASE_URL + BOOKING_ENDPOINT + booking_id, headers=headers_with_cookie, json=data,
-                              timeout=5)
+    response = requests.patch(BASE_URL + BOOKING_ENDPOINT + booking_id,
+                              headers=headers_with_cookie, json=data, timeout=5)
     context.response = response
 
     # Update the context.booking dictionary with the new booking data
@@ -156,8 +154,8 @@ def step_partial_update_booking(context):
 def step_delete_booking(context):
     """Delete the booking using the booking ID"""
     headers_with_cookie["Cookie"] = f"token={context.token}"  # add the token to the headers
-    context.response = requests.delete(BASE_URL + BOOKING_ENDPOINT + context.bookingid, headers=headers_with_cookie,
-                                       timeout=5)
+    context.response = requests.delete(BASE_URL + BOOKING_ENDPOINT + context.bookingid,
+                                       headers=headers_with_cookie, timeout=5)
 
 
 @then('a booking ID is obtained')
@@ -178,7 +176,6 @@ def step_auth_token_obtained(context):
     assert context.token != ""
     assert context.response.status_code == 200
 
-
 @then('the booking details are retrieved successfully')
 def step_booking_details_retrieved(context):
     """Verify that the booking details are retrieved successfully"""
@@ -189,7 +186,6 @@ def step_booking_details_retrieved(context):
 
     # Validate the entire response context against the schema
     jsonschema.validate(context.response.json(), schema)
-
 
 @then('the booking details are updated successfully')
 def step_booking_details_updated(context):
