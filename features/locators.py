@@ -1,4 +1,5 @@
-'''Locators for UI tests'''
+"""Locators for UI tests"""
+
 
 class Locators:
     """Class to store locators for web elements"""
@@ -14,7 +15,7 @@ class Locators:
     CART_ITEM = "//div[text()='Sauce Labs Backpack']"
     CHECKOUT_INFO = "//div[@id='checkout_info_container']"
 
-    # Nav Locators    
+    # Nav Locators
     CANCEL_BUTTON = "//button[@id='cancel']"
     CART_ICON = "//a[@class='shopping_cart_link']"
     CONTINUE_BUTTON = "//input[@id='continue']"
