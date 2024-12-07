@@ -1,25 +1,27 @@
-Feature: User login on saucedemo
-  As a user of saucedemo.com
-  I want to be able to interact with the website
-  So that I can buy some products
+Feature: User purchase flow
 
-Background: User login performed
+Background: User is logged in
     Given a user is on the login page
-    When the user submits credentials "standard_user" and "secret_sauce"
+    When the user enters credentials "standard_user" and "secret_sauce"
     Then the user is able to login
 
-
-  @e2e
-  Scenario: User purchase flow
-    When the user adds a product to the cart
+  @e2e @ui
+  Scenario Outline: User adds a product to the cart and checks out
+    When the user adds the product "<product_name>" to the cart
     And the user clicks on the cart icon
-    Then the user is able to see the item in the cart
-    When the user clicks on the checkout button
-    Then the user is able to see the checkout page
-    When the user fills the form with the following data
+    Then the product "<product_name>" is in the cart
+    When the user clicks checkout
+    Then the checkout page loads
+    When the user enters their information
       | First Name | Last Name | Zip/Postal Code |
       | John       | Doe       | 12345           |
-    And the user clicks on the continue button
-    Then the user is able to see the overview page
-    When the user clicks on the finish button
-    Then the user is able to see the confirmation page
+    And the user clicks continue
+    Then the checkout overview page loads
+    When the user clicks finish
+    Then the confirmation page loads
+
+    Examples:
+      | product_name           |
+      | Sauce Labs Backpack    |
+      | Sauce Labs Bike Light  |
+      | Sauce Labs Bolt T-Shirt|

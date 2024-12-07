@@ -1,5 +1,5 @@
 """
-This module contains the Selenium steps for 'login.feature'.
+Selenium steps for 'login.feature'
 """
 
 import logging
@@ -11,8 +11,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-# pylint: enable=no-name-in-module
-
+from features.locators import Locators
 
 logging.basicConfig(level=logging.INFO)
 
@@ -27,20 +26,20 @@ def step_login_page(context):
         "https://www.saucedemo.com/" in context.browser.current_url
     ), "Not on the login page"
 
-    # Verify the presence of the login button
-    login_button = context.browser.find_element(By.ID, "login-button")
+    # Verify the login button
+    login_button = context.browser.find_element(By.XPATH, Locators.LOGIN_BUTTON)
     assert login_button is not None, "Login button not found"
 
 
-@given('the user submits credentials "{username}" and "{password}"')
-@when('the user submits credentials "{username}" and "{password}"')
+@given('the user enters credentials "{username}" and "{password}"')
+@when('the user enters credentials "{username}" and "{password}"')
 def step_enter_credentials(context, username, password):
     """Enter the username and password and click the login button"""
-    username_field = context.browser.find_element(By.ID, "user-name")
+    username_field = context.browser.find_element(By.XPATH, Locators.USERNAME_FIELD)
     username_field.send_keys(username)
-    password_field = context.browser.find_element(By.ID, "password")
+    password_field = context.browser.find_element(By.XPATH, Locators.PASSWORD_FIELD)
     password_field.send_keys(password)
-    login_button = context.browser.find_element(By.ID, "login-button")
+    login_button = context.browser.find_element(By.XPATH, Locators.LOGIN_BUTTON)
     context.start_time = time()
     login_button.click()
 
@@ -48,7 +47,7 @@ def step_enter_credentials(context, username, password):
 @when("the user opens the navigation menu")
 def step_open_menu(context):
     """Open the navigation menu"""
-    menu_button = context.browser.find_element(By.ID, "react-burger-menu-btn")
+    menu_button = context.browser.find_element(By.XPATH, Locators.REACT_BURGER)
     menu_button.click()
 
 
@@ -56,37 +55,51 @@ def step_open_menu(context):
 @when("the user is able to login")
 @then("the user is able to login")
 def step_login_success(context):
-    """Verify that the user is able to log in"""
+    """Verify that the user is able to log in and is on the product page"""
     assert (
         "https://www.saucedemo.com/inventory.html" in context.browser.current_url
     ), "Login failed"
+    # Verify the product page title
+    product_title = context.browser.find_element(By.XPATH, Locators.PRODUCT_PAGE)
+    assert product_title.text == "Products", "Incorrect page title"
 
 
 @then("the user is not able to login")
-def step_login_fail(context):
-    """Verify that the user is not able to log in"""
-    assert (
-        "https://www.saucedemo.com/" in context.browser.current_url
-    ), "Login succeeded"
+def step_user_not_able_to_login(context):
+    WebDriverWait(context.browser, 3).until(
+        EC.presence_of_element_located((By.CLASS_NAME, "error-message-container"))
+    )
 
 
 @then('the user should see an error message "{message}"')
 def step_error_message(context, message):
     """Verify that the user sees the correct error message"""
-    error_button = context.browser.find_element(
-        By.XPATH, f"//h3[contains(text(),'{message}')]"
+    if (
+        message
+        == "Epic sadface: Username and password do not match any user in this service"
+    ):
+        error_locator = Locators.UN_PW_ERROR
+    elif message == "Epic sadface: Sorry, this user has been locked out.":
+        error_locator = Locators.LOCKED_OUT_ERROR
+    else:
+        raise ValueError(f"Unknown error message: {message}")
+
+    error_element = WebDriverWait(context.browser, 3).until(
+        EC.presence_of_element_located((By.XPATH, error_locator))
     )
-    assert error_button.text.strip() == message, "Incorrect error message"
+    assert (
+        error_element.text.strip() == message
+    ), f"Expected error message '{message}' but got '{error_element.text.strip()}'"
 
 
 @when("the user clicks on the logout button")
 def step_logout(context):
     """Click on the logout button"""
     # Wait until the logout button is visible
-    WebDriverWait(context.browser, 2).until(
-        EC.visibility_of_element_located((By.ID, "logout_sidebar_link"))
+    WebDriverWait(context.browser, 1).until(
+        EC.visibility_of_element_located((By.XPATH, Locators.LOGOUT))
     )
-    logout_button = context.browser.find_element(By.ID, "logout_sidebar_link")
+    logout_button = context.browser.find_element(By.XPATH, Locators.LOGOUT)
     logout_button.click()
 
 
