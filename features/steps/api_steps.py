@@ -1,5 +1,5 @@
 """
-This module contains step definitions for 'api.feature'.
+Step definitions for 'api.feature'
 """
 
 import jsonschema
