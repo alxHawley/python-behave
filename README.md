@@ -1,6 +1,6 @@
-# PythonBDD Test Repository
+# Python Test Automation
 
-Welcome to my Python BDD project. This test automation project is developed with Behave, a Python-based Behavior-Driven Development (BDD) testing framework. Currently there are 3 features that include 10 scenarios across API tests and UI tests with Selenium.
+Welcome to my Python Test Automation project. This test automation project is developed with both Behave and Pytest to explore both BDD (Behavior Driven Development) and a more standard approach with Pytest.
 
 API used for backend automation: https://restful-booker.herokuapp.com/apidoc/index.html
 
@@ -10,7 +10,7 @@ Site for Selenium automation : https://www.saucedemo.com/
 
 This is a mock e-commerce site
 
-## What is BDD and Behave?
+## BDD and Behave?
 
 Behavior-Driven Development (BDD) is a software development methodology that emphasizes collaboration between developers, testers, and domain experts to ensure the alignment of software behavior with business requirements. Behave is a Python framework that enables BDD by allowing the creation of human-readable test scenarios and automating their execution.
 
