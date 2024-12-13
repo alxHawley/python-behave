@@ -1,6 +1,6 @@
 # Python Test Automation
 
-Welcome to my Python Test Automation project. This test automation project is developed with both Behave and Pytest to explore both BDD (Behavior Driven Development) and a more standard approach with Pytest.
+Welcome to my Python/Behave Test Automation project. This project is developed to explore BDD (Behavior Driven Development) for backend and frontend applications.
 
 API used for backend automation: https://restful-booker.herokuapp.com/apidoc/index.html
 
@@ -59,6 +59,6 @@ behave --tags=@api
 
 ## Resources:
 
-As the development of this project progresses, this README will be continuously updated to provide more detailed information and additional resources.
+As the development of this project progresses, this README will be updated.
 
 If you have any questions or suggestions please feel free reach out to me directly.
