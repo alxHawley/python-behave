@@ -14,7 +14,7 @@ jobs:
 
     services:
       api:
-        image: mwinteringham/restful-booker-restful-booker:latest
+        image: mwinteringham/restful-booker:latest
         ports:
           - 3001:3001
 
@@ -38,7 +38,7 @@ jobs:
         run: sleep 10  # Add a delay to ensure the API service is ready
 
       - name: Print API service logs
-        run: docker logs $(docker ps -q --filter "ancestor=mwinteringham/restful-booker-restful-booker:latest")
+        run: docker logs $(docker ps -q --filter "ancestor=mwinteringham/restful-booker:latest")
 
       - name: Run API tests
         run: behave features/api.feature
