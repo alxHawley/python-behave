@@ -259,4 +259,4 @@ def step_booking_deleted(context):
     assert context.response.status_code == 201
     assert (
         context.response.text == "Created"
-    )  # the API does not respond with expected "Deleted"!
+    )  # the API does not respond with expected "Deleted"
