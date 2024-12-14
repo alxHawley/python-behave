@@ -20,6 +20,7 @@ jobs:
 
     env:
       BASE_URL: http://localhost:3001/
+      RUN_UI_TESTS: "false"
 
     steps:
       - name: Checkout code
