@@ -2,6 +2,8 @@
 Step definitions for 'api.feature'
 """
 
+import os
+
 import jsonschema
 import requests
 
@@ -13,7 +15,9 @@ from dateutil.parser import parse
 
 from utils.schema_loader import load_schema
 
-BASE_URL = "https://restful-booker.herokuapp.com/"
+BASE_URL = os.getenv(
+    "BASE_URL", "http://localhost:3001/"
+)  # or https://restful-booker.herokuapp.com/
 BOOKING_ENDPOINT = "booking/"
 AUTH_ENDPOINT = "auth"
 
@@ -43,8 +47,7 @@ def step_create_booking(context):
         context.checkout = booking_data["checkout"]
         context.additionalneeds = booking_data["additionalneeds"]
         checkin_date = parse(context.checkin).strftime("%Y-%m-%d")  # convert to date
-        checkout_date = parse(context.checkout).strftime("%Y-%m-%d")
-
+        checkout_date = parse(context.checkout).strftime("%Y-%m-%d")  # convert to date
         context.response = requests.post(
             BASE_URL + BOOKING_ENDPOINT,
             headers=headers,
