@@ -14,7 +14,7 @@ jobs:
 
     services:
       api:
-        image: mwinteringham/restfulbookerplatform_booking:latest
+        image: mwinteringham/restfulbookerplatform_booking:1.7.65e2906
         ports:
           - 3001:3001
 
