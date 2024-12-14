@@ -3,15 +3,17 @@ Selenium steps for 'e2e.feature'
 """
 
 import logging
+import os
 
 # pylint: disable=no-name-in-module
 from behave import then, when
 
 # pylint: enable=no-name-in-module
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
+if os.getenv("RUN_UI_TESTS") == "true":
+    from selenium.common.exceptions import TimeoutException
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support import expected_conditions as EC
+    from selenium.webdriver.support.ui import WebDriverWait
 
 from features.locators import Locators
 

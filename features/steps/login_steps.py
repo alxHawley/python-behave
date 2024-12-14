@@ -3,13 +3,16 @@ Selenium steps for 'login.feature'
 """
 
 import logging
+import os
 from time import time
 
 # pylint: disable=no-name-in-module
 from behave import given, then, when
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
+
+if os.getenv("RUN_UI_TESTS") == "true":
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support import expected_conditions as EC
+    from selenium.webdriver.support.ui import WebDriverWait
 
 from features.locators import Locators
 
