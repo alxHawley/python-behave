@@ -2,6 +2,7 @@
 Step definitions for 'api.feature'
 """
 
+import logging
 import os
 
 import jsonschema
@@ -15,9 +16,7 @@ from dateutil.parser import parse
 
 from utils.schema_loader import load_schema
 
-BASE_URL = os.getenv(
-    "BASE_URL", "http://localhost:3001/"
-)  # or https://restful-booker.herokuapp.com/
+BASE_URL = os.getenv("BASE_URL", "http://localhost:3001/")
 BOOKING_ENDPOINT = "booking/"
 AUTH_ENDPOINT = "auth"
 
@@ -47,9 +46,11 @@ def step_create_booking(context):
         context.checkout = booking_data["checkout"]
         context.additionalneeds = booking_data["additionalneeds"]
         checkin_date = parse(context.checkin).strftime("%Y-%m-%d")  # convert to date
-        checkout_date = parse(context.checkout).strftime("%Y-%m-%d")  # convert to date
+        checkout_date = parse(context.checkout).strftime("%Y-%m-%d")
+        url = BASE_URL + BOOKING_ENDPOINT
+        logging.info(f"POST request URL: {url}")
         context.response = requests.post(
-            BASE_URL + BOOKING_ENDPOINT,
+            url,
             headers=headers,
             json={
                 "firstname": context.firstname,
@@ -61,6 +62,9 @@ def step_create_booking(context):
             },
             timeout=5,
         )
+        logging.info(f"Response status code: {context.response.status_code}")
+        logging.info(f"Response body: {context.response.json()}")
+
         # Store the response values for bookingid and booking
         context.bookingid = str(context.response.json()["bookingid"])
         context.booking = context.response.json()

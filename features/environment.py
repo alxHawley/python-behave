@@ -2,11 +2,13 @@
 This module contains the Selenium env setup.
 """
 
+import logging
 import os
 
 
 def before_all(context):
     """Setup chrome browser if running UI tests"""
+    logging.basicConfig(level=logging.INFO)
     if os.getenv("RUN_UI_TESTS") == "true":
         from selenium import webdriver
         from selenium.webdriver.chrome.service import Service
