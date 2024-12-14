@@ -34,11 +34,5 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Wait for API to be ready
-        run: sleep 10  # Add a delay to ensure the API service is ready
-
-      - name: Print API service logs
-        run: docker logs $(docker ps -q --filter "ancestor=mwinteringham/restfulbooker:latest")
-
       - name: Run API tests
         run: behave features/api.feature
