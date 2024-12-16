@@ -31,8 +31,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run API tests
-        run: behave --tags=@api
+      # - name: Run API tests
+      #   run: behave --tags=@api
 
-      # - name: Run UI tests
-      #   run: behave --tags=@ui
+      - name: Run UI tests
+        run: behave --tags=@ui
