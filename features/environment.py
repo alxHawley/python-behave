@@ -4,6 +4,7 @@ This module contains the Selenium env setup.
 
 import logging
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
 
 
 def before_all(context):
@@ -21,7 +22,9 @@ def before_scenario(context, scenario):
     if "ui" in scenario.effective_tags:
         from selenium import webdriver
 
-        context.browser = webdriver.Chrome(ChromeDriverManager().install())
+        # Create a Service object with the path to the ChromeDriver
+        service = Service(ChromeDriverManager().install())
+        context.browser = webdriver.Chrome(service=service)
         context.browser.maximize_window()
         logging.info("before_scenario: Browser setup complete")
 
