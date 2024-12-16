@@ -1,3 +1,4 @@
+@api
 Feature: Hotel bookings management with Restful Booker API  
   As an API client
   I want to create, update, and delete hotel bookings
@@ -11,12 +12,10 @@ Background:
     Then a booking ID is obtained
     And an auth token is obtained
   
-  @api
   Scenario: Retrieving booking details
     When a GET request is made with the booking ID
     Then the booking details are retrieved successfully
 
-  @api
   Scenario: Updating booking details
     When a PUT request is made with the booking ID
     | firstname | lastname | totalprice | depositpaid | checkin    | checkout   | additionalneeds |
@@ -24,14 +23,12 @@ Background:
     Then the booking details are updated successfully
     And the booking details are retrieved successfully
 
-  @api
   Scenario: Partially updating booking details
     When a PATCH request is made with the booking ID
     | totalprice | depositpaid | checkin    | checkout   |
     | 700        | true        | 2023-08-24 | 2023-09-15 |
     Then the booking details are partially updated successfully
 
-  @api
   Scenario: Deleting a booking
     When a DELETE request is made with the booking ID
     Then the booking is deleted successfully
