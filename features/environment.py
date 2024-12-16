@@ -21,10 +21,21 @@ def before_scenario(context, scenario):
     )
     if "ui" in scenario.effective_tags:
         from selenium import webdriver
+        from selenium.webdriver.chrome.options import Options
 
-        # Create a Service object with the path to the ChromeDriver
+        # Set Chrome options
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--disable-gpu")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+
+        # Create a Service object with the path to the 
+        # ChromeDriver
         service = Service(ChromeDriverManager().install())
-        context.browser = webdriver.Chrome(service=service)
+        context.browser = webdriver.Chrome(
+            service=service, options=chrome_options
+        )
         context.browser.maximize_window()
         logging.info("before_scenario: Browser setup complete")
 
