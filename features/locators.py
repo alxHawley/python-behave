@@ -23,10 +23,14 @@ class Locators:
 
     # Page Locators
     PRODUCT_PAGE = "//span[@class='title' and text()='Products']"
-    CHECKOUT_PAGE = "//span[@class='title' and text()='Checkout: Your Information']"
+    CHECKOUT_PAGE = (
+        "//span[@class='title' and text()='Checkout: Your Information']"
+    )
     CART_PAGE_TITLE = "//span[@class='title' and text()='Your Cart']"
-    CHECKOUT_OVERVIEW = "//span[@class='title' and text()='Checkout: Overview']"
-    CHECKOUT_COMPLETE = "//span[@class='title' and text()='Checkout: Complete!']"
+    CHECKOUT_OVERVIEW = (
+        "//span[@class='title' and text()='Checkout: Overview']")
+    CHECKOUT_COMPLETE = (
+        "//span[@class='title' and text()='Checkout: Complete!']")
 
     # Checkout Flow Locators
     FIRST_NAME = "//input[@id='first-name']"
@@ -38,7 +42,7 @@ class Locators:
     FINISH_BUTTON = "//button[@id='finish']"
 
     # Product Page Locators
-    # PRODUCT_SORT_DROPDOWN = "//select[@class='product_sort_container']" # not used
+    # PRODUCT_SORT_DROPDOWN = "//select[@class='product_sort_container']"
     # BACK_TO_PRODUCTS = "//button[@id='back-to-products']" # not used
     # PRODUCT_REMOVE = "//button[@id='remove']" # not used
 
@@ -52,11 +56,12 @@ class Locators:
 
     # ERROR_MESSAGES
     UN_PW_ERROR = (
-        "//h3[contains(text(),'Epic sadface: Username and password do not match any "
-        "user in this service')]"
+        "//h3[contains(text(),'Epic sadface: Username and password do not "
+        "match any user in this service')]"
     )
     LOCKED_OUT_ERROR = (
-        "//h3[contains(text(),'Epic sadface: Sorry, this user has been locked out.')]"
+        "//h3[contains(text(),'Epic sadface: Sorry, this user has been "
+        "locked out.')]"
     )
 
     # SIDEBAR_LINKS

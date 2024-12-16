@@ -13,7 +13,9 @@ def before_all(context):
         from selenium import webdriver
         from selenium.webdriver.chrome.service import Service
 
-        service = Service("C:/Program Files/Google/Chrome/Application/chromedriver.exe")
+        service = Service(
+            "C:/Program Files/Google/Chrome/Application/chromedriver.exe"
+        )
         context.browser = webdriver.Chrome(service=service)
         context.browser.maximize_window()
 
