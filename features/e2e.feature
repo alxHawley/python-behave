@@ -1,3 +1,4 @@
+@ui
 Feature: User purchase flow
 
 Background: User is logged in
@@ -5,7 +6,6 @@ Background: User is logged in
     When the user enters credentials "standard_user" and "secret_sauce"
     Then the user is able to login
 
-  @e2e @ui
   Scenario Outline: User adds a product to the cart and checks out
     When the user adds the product "<product_name>" to the cart
     And the user clicks on the cart icon
