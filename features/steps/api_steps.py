@@ -36,16 +36,18 @@ headers_with_cookie = {
 
 @given("a hotel booking is created")
 def step_create_booking(context):
-    """Create a booking and store the booking ID and booking data in the context"""
+    """
+    Create a booking and store the booking ID and booking data in the context
+    """
     for booking_data in context.table:  # extract the data table
         context.firstname = booking_data["firstname"]
         context.lastname = booking_data["lastname"]
-        context.totalprice = int(booking_data["totalprice"])  # convert to integer
-        context.depositpaid = bool(booking_data["depositpaid"])  # convert to boolean
+        context.totalprice = int(booking_data["totalprice"])  # to integer
+        context.depositpaid = bool(booking_data["depositpaid"])  # to boolean
         context.checkin = booking_data["checkin"]
         context.checkout = booking_data["checkout"]
         context.additionalneeds = booking_data["additionalneeds"]
-        checkin_date = parse(context.checkin).strftime("%Y-%m-%d")  # convert to date
+        checkin_date = parse(context.checkin).strftime("%Y-%m-%d")  # to date
         checkout_date = parse(context.checkout).strftime("%Y-%m-%d")
 
         url = BASE_URL + BOOKING_ENDPOINT
@@ -59,7 +61,10 @@ def step_create_booking(context):
                 "lastname": context.lastname,
                 "totalprice": context.totalprice,
                 "depositpaid": context.depositpaid,
-                "bookingdates": {"checkin": checkin_date, "checkout": checkout_date},
+                "bookingdates": {
+                    "checkin": checkin_date,
+                    "checkout": checkout_date,
+                },
                 "additionalneeds": context.additionalneeds,
             },
             timeout=5,
@@ -95,7 +100,7 @@ def step_get_booking(context):
 @when("a PUT request is made with the booking ID")
 def step_update_booking(context):
     """Update the booking details using the booking ID"""
-    headers_with_cookie["Cookie"] = f"token={context.token}"  # add token headers
+    headers_with_cookie["Cookie"] = f"token={context.token}"  # auth token
     url = f"{BASE_URL}{BOOKING_ENDPOINT}/{context.bookingid}"
     logging.info(f"PUT request URL: {url}")
     context.response = requests.put(
@@ -106,7 +111,10 @@ def step_update_booking(context):
             "lastname": context.lastname,
             "totalprice": context.totalprice,
             "depositpaid": context.depositpaid,
-            "bookingdates": {"checkin": context.checkin, "checkout": context.checkout},
+            "bookingdates": {
+                "checkin": context.checkin,
+                "checkout": context.checkout,
+            },
             "additionalneeds": context.additionalneeds,
         },
         timeout=5,
@@ -135,7 +143,7 @@ def step_partial_update_booking(context):
         data["bookingdates"]["checkout"] = new_booking["checkout"]
 
     # Send the PATCH request and store the response
-    headers_with_cookie["Cookie"] = f"token={context.token}"  # add token headers
+    headers_with_cookie["Cookie"] = f"token={context.token}"  # auth token
     url = f"{BASE_URL}{BOOKING_ENDPOINT}/{context.bookingid}"
     logging.info(f"PATCH request URL: {url}")
 
@@ -164,7 +172,9 @@ def step_delete_booking(context):
     )
     url = f"{BASE_URL}{BOOKING_ENDPOINT}/{context.bookingid}"
     logging.info(f"DELETE request URL: {url}")
-    context.response = requests.delete(url, headers=headers_with_cookie, timeout=5)
+    context.response = requests.delete(
+        url, headers=headers_with_cookie, timeout=5
+    )
     logging.info(f"Response status code: {context.response.status_code}")
 
 
@@ -210,7 +220,7 @@ def step_booking_details_updated(context):
     response_json = context.response.json()
     logging.info(f"Response JSON: {response_json}")
 
-    # assert that the booking data returned matches the data used to update the booking
+    # assert that booking data returned matches data used to update the booking
     assert response_json["firstname"] == context.booking["firstname"]
     assert response_json["lastname"] == context.booking["lastname"]
     assert response_json["totalprice"] == context.booking["totalprice"]
@@ -238,7 +248,7 @@ def step_booking_details_partially_updated(context):
     logging.info(f"Expected depositpaid: {context.booking['depositpaid']}")
     logging.info(f"Actual depositpaid: {response_json['depositpaid']}")
 
-    # assert that the booking data returned matches the data used to update the booking
+    # assert that booking data returned matches data used to update booking
     assert response_json["firstname"] == context.booking["firstname"]
     assert response_json["lastname"] == context.booking["lastname"]
     assert response_json["totalprice"] == context.booking["totalprice"]

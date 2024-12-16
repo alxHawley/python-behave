@@ -21,7 +21,9 @@ logging.basicConfig(level=logging.INFO)
 
 @given("a user is on the login page")
 def step_login_page(context):
-    """Navigate to the login page and verify the presence of the login button"""
+    """
+    Navigate to the login page and verify the presence of the login button
+    """
     context.browser.get("https://www.saucedemo.com/")
 
     # Verify the URL
@@ -30,7 +32,9 @@ def step_login_page(context):
     ), "Not on the login page"
 
     # Verify the login button
-    login_button = context.browser.find_element(By.XPATH, Locators.LOGIN_BUTTON)
+    login_button = context.browser.find_element(
+        By.XPATH, Locators.LOGIN_BUTTON
+    )
     assert login_button is not None, "Login button not found"
 
 
@@ -38,11 +42,17 @@ def step_login_page(context):
 @when('the user enters credentials "{username}" and "{password}"')
 def step_enter_credentials(context, username, password):
     """Enter the username and password and click the login button"""
-    username_field = context.browser.find_element(By.XPATH, Locators.USERNAME_FIELD)
+    username_field = context.browser.find_element(
+        By.XPATH, Locators.USERNAME_FIELD
+    )
     username_field.send_keys(username)
-    password_field = context.browser.find_element(By.XPATH, Locators.PASSWORD_FIELD)
+    password_field = context.browser.find_element(
+        By.XPATH, Locators.PASSWORD_FIELD
+    )
     password_field.send_keys(password)
-    login_button = context.browser.find_element(By.XPATH, Locators.LOGIN_BUTTON)
+    login_button = context.browser.find_element(
+        By.XPATH, Locators.LOGIN_BUTTON
+    )
     context.start_time = time()
     login_button.click()
 
@@ -60,17 +70,22 @@ def step_open_menu(context):
 def step_login_success(context):
     """Verify that the user is able to log in and is on the product page"""
     assert (
-        "https://www.saucedemo.com/inventory.html" in context.browser.current_url
+        "https://www.saucedemo.com/inventory.html"
+        in context.browser.current_url
     ), "Login failed"
     # Verify the product page title
-    product_title = context.browser.find_element(By.XPATH, Locators.PRODUCT_PAGE)
+    product_title = context.browser.find_element(
+        By.XPATH, Locators.PRODUCT_PAGE
+    )
     assert product_title.text == "Products", "Incorrect page title"
 
 
 @then("the user is not able to login")
 def step_user_not_able_to_login(context):
     WebDriverWait(context.browser, 3).until(
-        EC.presence_of_element_located((By.CLASS_NAME, "error-message-container"))
+        EC.presence_of_element_located(
+            (By.CLASS_NAME, "error-message-container")
+        )
     )
 
 
@@ -79,7 +94,10 @@ def step_error_message(context, message):
     """Verify that the user sees the correct error message"""
     if (
         message
-        == "Epic sadface: Username and password do not match any user in this service"
+        == (
+            "Epic sadface: Username and password do not match any user in "
+            "this service"
+        )
     ):
         error_locator = Locators.UN_PW_ERROR
     elif message == "Epic sadface: Sorry, this user has been locked out.":
@@ -92,7 +110,10 @@ def step_error_message(context, message):
     )
     assert (
         error_element.text.strip() == message
-    ), f"Expected error message '{message}' but got '{error_element.text.strip()}'"
+    ), (
+        f"Expected error message '{message}' but got "
+        f"'{error_element.text.strip()}'"
+    )
 
 
 @when("the user clicks on the logout button")
@@ -108,8 +129,13 @@ def step_logout(context):
 
 @then("the user is logged out")
 def step_logout_success(context):
-    """Verify that the user is logged out"""
-    assert "https://www.saucedemo.com/" in context.browser.current_url, "Logout failed"
+    assert (
+        "https://www.saucedemo.com/"
+        in context.browser.current_url
+    ), "Logout failed"
+    assert (
+        "https://www.saucedemo.com/" in context.browser.current_url
+    ), "Logout failed"
 
 
 @then("the product page should load in less than 1 second")

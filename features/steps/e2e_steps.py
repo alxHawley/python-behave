@@ -57,7 +57,8 @@ def step_verify_cart(context, product_name):
 @when("the user clicks checkout")
 def step_click_checkout(context):
     """Click on the checkout button"""
-    checkout_button = context.browser.find_element(By.XPATH, Locators.CHECKOUT_BUTTON)
+    checkout_button = context.browser.find_element(
+        By.XPATH, Locators.CHECKOUT_BUTTON)
     checkout_button.click()
 
 
@@ -77,9 +78,15 @@ def step_verify_checkout(context):
 def step_fill_checkout(context):
     """Fill the checkout form"""
     for row in context.table:
-        first_name = context.browser.find_element(By.XPATH, Locators.FIRST_NAME)
-        last_name = context.browser.find_element(By.XPATH, Locators.LAST_NAME)
-        postal_code = context.browser.find_element(By.XPATH, Locators.POSTAL_CODE)
+        first_name = context.browser.find_element(
+            By.XPATH, Locators.FIRST_NAME
+        )
+        last_name = context.browser.find_element(
+            By.XPATH, Locators.LAST_NAME
+        )
+        postal_code = context.browser.find_element(
+            By.XPATH, Locators.POSTAL_CODE
+        )
 
         first_name.send_keys(row["First Name"])
         last_name.send_keys(row["Last Name"])
@@ -89,7 +96,9 @@ def step_fill_checkout(context):
 @when("the user clicks continue")
 def click_continue(context):
     """Click on the continue button"""
-    continue_button = context.browser.find_element(By.XPATH, Locators.CONTINUE_BUTTON)
+    continue_button = context.browser.find_element(
+        By.XPATH, Locators.CONTINUE_BUTTON
+    )
     continue_button.click()
 
 
@@ -101,14 +110,16 @@ def step_verify_overview(context):
         in context.browser.current_url
     ), "Not on the overview page"
     # Verify the overview page title
-    overview_title = context.browser.find_element(By.XPATH, Locators.CHECKOUT_OVERVIEW)
+    overview_title = (
+        context.browser.find_element(By.XPATH, Locators.CHECKOUT_OVERVIEW))
     assert overview_title.text == "Checkout: Overview", "Incorrect page title"
 
 
 @when("the user clicks finish")
 def step_click_finish(context):
     """Click on the finish button"""
-    finish_button = context.browser.find_element(By.XPATH, Locators.FINISH_BUTTON)
+    finish_button = (
+        context.browser.find_element(By.XPATH, Locators.FINISH_BUTTON))
     finish_button.click()
 
 
@@ -123,4 +134,5 @@ def step_verify_confirmation(context):
     confirmation_title = context.browser.find_element(
         By.XPATH, Locators.CHECKOUT_COMPLETE
     )
-    assert confirmation_title.text == "Checkout: Complete!", "Incorrect page title"
+    assert confirmation_title.text == "Checkout: Complete!", \
+        "Incorrect page title"
