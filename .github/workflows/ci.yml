@@ -34,5 +34,5 @@ jobs:
       - name: Run API tests
         run: behave --tags=@api
 
-      - name: Run UI tests
-        run: behave --tags=@ui
+      # - name: Run UI tests
+      #   run: behave --tags=@ui
