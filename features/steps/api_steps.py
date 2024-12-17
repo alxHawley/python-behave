@@ -2,7 +2,6 @@
 Step definitions for 'api.feature'
 """
 
-import logging
 import os
 
 import jsonschema
@@ -34,7 +33,7 @@ headers_with_cookie = {
 }
 
 
-@given("a hotel booking is created")
+@given("a post request is made to /booking with the following payload")
 def step_create_booking(context):
     """
     Create a booking and store the booking ID and booking data in the context
@@ -51,7 +50,6 @@ def step_create_booking(context):
         checkout_date = parse(context.checkout).strftime("%Y-%m-%d")
 
         url = BASE_URL + BOOKING_ENDPOINT
-        logging.info(f"POST request URL: {url}")
 
         context.response = requests.post(
             url,
@@ -69,8 +67,6 @@ def step_create_booking(context):
             },
             timeout=5,
         )
-        logging.info(f"Response status code: {context.response.status_code}")
-        logging.info(f"Response body: {context.response.json()}")
 
         # Store the response values for bookingid and booking
         context.bookingid = str(context.response.json()["bookingid"])
@@ -79,7 +75,7 @@ def step_create_booking(context):
         assert context.response.status_code == 200
 
 
-@when("the booking details are provided")
+@when("the response is returned")
 def step_validate_booking(context):
     """Validate the booking details against the schema"""
     # Load the JSON schema from the file
@@ -92,17 +88,15 @@ def step_validate_booking(context):
 def step_get_booking(context):
     """Get the booking details using the booking ID"""
     url = f"{BASE_URL}{BOOKING_ENDPOINT}/{context.bookingid}"
-    logging.info(f"GET request URL: {url}")
     context.response = requests.get(url, headers=headers, timeout=5)
     context.booking = context.response.json()
 
 
-@when("a PUT request is made with the booking ID")
+@when("a PUT request is made with a booking ID and an updated payload")
 def step_update_booking(context):
     """Update the booking details using the booking ID"""
-    headers_with_cookie["Cookie"] = f"token={context.token}"  # auth token
+    headers_with_cookie["Cookie"] = f"token={context.token}"
     url = f"{BASE_URL}{BOOKING_ENDPOINT}/{context.bookingid}"
-    logging.info(f"PUT request URL: {url}")
     context.response = requests.put(
         url,
         headers=headers_with_cookie,
@@ -119,8 +113,6 @@ def step_update_booking(context):
         },
         timeout=5,
     )
-    logging.info(f"Response status code: {context.response.status_code}")
-    logging.info(f"Response body: {context.response.json()}")
 
 
 @when("a PATCH request is made with the booking ID")
@@ -145,8 +137,6 @@ def step_partial_update_booking(context):
     # Send the PATCH request and store the response
     headers_with_cookie["Cookie"] = f"token={context.token}"  # auth token
     url = f"{BASE_URL}{BOOKING_ENDPOINT}/{context.bookingid}"
-    logging.info(f"PATCH request URL: {url}")
-
     response = requests.patch(
         url,
         headers=headers_with_cookie,
@@ -154,8 +144,6 @@ def step_partial_update_booking(context):
         timeout=5,
     )
     context.response = response
-    logging.info(f"Response status code: {context.response.status_code}")
-    logging.info(f"Response body: {context.response.json()}")
 
     # Update the context.booking dictionary with the new booking data
     context.booking.update(response.json())
@@ -171,21 +159,19 @@ def step_delete_booking(context):
         f"token={context.token}"  # add the token to the headers
     )
     url = f"{BASE_URL}{BOOKING_ENDPOINT}/{context.bookingid}"
-    logging.info(f"DELETE request URL: {url}")
     context.response = requests.delete(
         url, headers=headers_with_cookie, timeout=5
     )
-    logging.info(f"Response status code: {context.response.status_code}")
 
 
-@then("a booking ID is obtained")
+@then("a booking ID is generated")
 def step_booking_id_obtained(context):
     """Verify that a booking ID is obtained"""
     assert context.bookingid is not None
 
 
-@then("an auth token is obtained")
-def step_auth_token_obtained(context):
+@then("an auth token is generated")
+def step_auth_token_generate(context):
     """Verify that an auth token is obtained"""
     context.response = requests.post(
         BASE_URL + AUTH_ENDPOINT,
@@ -199,7 +185,7 @@ def step_auth_token_obtained(context):
     assert context.response.status_code == 200
 
 
-@then("the booking details are retrieved successfully")
+@then("the json schema for the record is valid")
 def step_booking_details_retrieved(context):
     """Verify that the booking details are retrieved successfully"""
     assert context.response.status_code == 200
@@ -211,15 +197,13 @@ def step_booking_details_retrieved(context):
     jsonschema.validate(context.response.json(), schema)
 
 
-@then("the booking details are updated successfully")
+@then("the API response returns the correct record details")
 def step_booking_details_updated(context):
     """Verify that the booking details are updated successfully"""
     assert context.response.status_code == 200
 
     # Log the entire JSON response for debugging
     response_json = context.response.json()
-    logging.info(f"Response JSON: {response_json}")
-
     # assert that booking data returned matches data used to update the booking
     assert response_json["firstname"] == context.booking["firstname"]
     assert response_json["lastname"] == context.booking["lastname"]
@@ -235,18 +219,11 @@ def step_booking_details_updated(context):
     )
 
 
-@then("the booking details are partially updated successfully")
+@then("the API response returns the new record details")
 def step_booking_details_partially_updated(context):
     """Verify that the booking details are partially updated successfully"""
     assert context.response.status_code == 200
-
-    # Log the entire JSON response for debugging
     response_json = context.response.json()
-    logging.info(f"Response JSON: {response_json}")
-
-    # Log the expected and actual values for debugging
-    logging.info(f"Expected depositpaid: {context.booking['depositpaid']}")
-    logging.info(f"Actual depositpaid: {response_json['depositpaid']}")
 
     # assert that booking data returned matches data used to update booking
     assert response_json["firstname"] == context.booking["firstname"]
@@ -263,7 +240,7 @@ def step_booking_details_partially_updated(context):
     )
 
 
-@then("the booking is deleted successfully")
+@then("the record is deleted")
 def step_booking_deleted(context):
     """Verify that the booking is 'deleted' successfully"""
     assert context.response.status_code == 201
