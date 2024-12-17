@@ -3,7 +3,7 @@ Feature: User purchase flow
 
 Background: User is logged in
     Given a user is on the login page
-    When the user enters credentials "standard_user" and "secret_sauce"
+    When the user enters "standard_user" and "secret_sauce"
     Then the user is able to login
 
   Scenario Outline: User adds a product to the cart and checks out
