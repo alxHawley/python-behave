@@ -92,6 +92,7 @@ behave --tags=@api
 ## Resources:
 
 API playground: https://restful-booker.herokuapp.com/apidoc/index.html, provided by Mark Winteringham at https://www.mwtestconsultancy.co.uk/
+
 API Docker Image: https://hub.docker.com/r/mwinteringham/restfulbooker/tags
 
-FE playground for Selenium automation : https://www.saucedemo.com/, provided by https://saucelabs.com/
+FE playground for Selenium: https://www.saucedemo.com/, provided by https://saucelabs.com/
