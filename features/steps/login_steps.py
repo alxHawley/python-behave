@@ -37,8 +37,8 @@ def step_login_page(context):
     assert login_button is not None, "Login button not found"
 
 
-@given('the user enters credentials "{username}" and "{password}"')
-@when('the user enters credentials "{username}" and "{password}"')
+@given('the user enters "{username}" and "{password}"')
+@when('the user enters "{username}" and "{password}"')
 def step_enter_credentials(context, username, password):
     """Enter the username and password and click the login button"""
     username_field = context.browser.find_element(
