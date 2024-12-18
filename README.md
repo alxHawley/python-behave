@@ -1,4 +1,4 @@
-# Python Test Automation with Behave (BDD)
+# Python BDD: Test Automation with the Behave Framework, Requests, and Selenium
 
 Welcome to my Python/Behave Test Automation project. This project is being developed to explore BDD (Behavior Driven Development) for testing backend and frontend features.
 
