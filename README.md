@@ -1,4 +1,4 @@
-# Python Test Automation using BDD
+# Python Test Automation with Behave (BDD)
 
 Welcome to my Python/Behave Test Automation project. This project is being developed to explore BDD (Behavior Driven Development) for testing backend and frontend features.
 
@@ -6,7 +6,7 @@ Welcome to my Python/Behave Test Automation project. This project is being devel
 
 The API steps rely on the Python Requests library to make authentication requests, perform CRUD actions on the API, and make assertions on the API response. Additionally, I've added some schema validation steps that utilize jsonschema. For API testing I really value the simplicity, capability, and speed of Python paired with Requests.
 
-The UI steps leverage Selenium to interact with a playground website. Selenium was chosen for this project simply because it works well with Python (and I wanted the exercise).
+The UI steps use Selenium to interact with a playground website. Selenium was chosen for this project simply because it works well with Python (and I wanted the exercise).
 
 WIP: This project is set up (albeit somewhat crudely) with a GitHub Actions Workflow to run features on pushes to the main branch. I had to get a little creative with the environment.py file to isolate dependancies/imports, and I have backlog items to modify and enhance the workflow for better performance.
 
@@ -26,7 +26,7 @@ In Behave, tests are written in a natural language format called Gherkin. Each t
 - **When:** The action or event that occurs.
 - **Then:** The expected outcome or result.
 
-For details on how this translates into Python, and the directory layout, please review the official documentation: https://behave.readthedocs.io/en/stable/gherkin.html#feature-testing-layout
+For details on how this translates into Python code, and the directory layout, please review the official documentation: https://behave.readthedocs.io/en/stable/gherkin.html#feature-testing-layout
 
 ## Setup and Dependencies:
 
