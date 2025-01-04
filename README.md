@@ -2,6 +2,22 @@
 
 Welcome to my Python/Behave Test Automation project. This project is being developed to explore BDD (Behavior Driven Development) for testing backend and frontend features.
 
+## BDD and Behave
+
+Behavior-Driven Development (BDD) is a software development methodology that emphasizes collaboration between developers, testers, and domain experts to ensure the alignment of software behavior with business requirements. Behave is a Python framework that enables BDD by allowing the creation of human-readable test scenarios and automating their execution.
+
+## Key Components of a Behave Test:
+
+In Behave, tests are written in a natural language format called Gherkin. Each test is composed of key components:
+
+- **Feature:** A high-level description of the functionality being tested.
+- **Scenario:** A specific test case described in a user-readable manner.
+- **Given:** The initial context or setup for the scenario.
+- **When:** The action or event that occurs.
+- **Then:** The expected outcome or result.
+
+For details on how this translates into Python code, and the directory layout, please review the official documentation: https://behave.readthedocs.io/en/stable/gherkin.html#feature-testing-layout
+
 ## Project details:
 
 The API steps rely on the Python Requests library to make authentication requests, perform CRUD actions on the API, and make assertions on the API response. Additionally, I've added some schema validation steps that utilize jsonschema. For API testing I really value the simplicity, capability, and speed of Python paired with Requests.
@@ -11,22 +27,6 @@ The UI steps use Selenium to interact with a playground website. Selenium was ch
 WIP: This project is set up (albeit somewhat crudely) with a GitHub Actions Workflow to run features on pushes to the main branch. I had to get a little creative with the environment.py file to isolate dependancies/imports, and I have backlog items to modify and enhance the workflow for better performance.
 
 Backlog: additional API features/steps, refactor API features/steps, additional UI features/steps & refactor, better UI test organization, put into Docker, etc; etc;
-
-## BDD and Behave?
-
-Behavior-Driven Development (BDD) is a software development methodology that emphasizes collaboration between developers, testers, and domain experts to ensure the alignment of software behavior with business requirements. Behave is a Python framework that enables BDD by allowing the creation of human-readable test scenarios and automating their execution.
-
-## Key Components of a Behave Test:
-
-In Behave, tests are written in a natural language format called Gherkin. Each test is composed of the following key components:
-
-- **Feature:** A high-level description of the functionality being tested.
-- **Scenario:** A specific test case described in a user-readable manner.
-- **Given:** The initial context or setup for the scenario.
-- **When:** The action or event that occurs.
-- **Then:** The expected outcome or result.
-
-For details on how this translates into Python code, and the directory layout, please review the official documentation: https://behave.readthedocs.io/en/stable/gherkin.html#feature-testing-layout
 
 ## Setup and Dependencies:
 
