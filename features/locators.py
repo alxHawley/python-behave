@@ -23,14 +23,10 @@ class Locators:
 
     # Page Locators
     PRODUCT_PAGE = "//span[@class='title' and text()='Products']"
-    CHECKOUT_PAGE = (
-        "//span[@class='title' and text()='Checkout: Your Information']"
-    )
+    CHECKOUT_PAGE = "//span[@class='title' and text()='Checkout: Your Information']"
     CART_PAGE_TITLE = "//span[@class='title' and text()='Your Cart']"
-    CHECKOUT_OVERVIEW = (
-        "//span[@class='title' and text()='Checkout: Overview']")
-    CHECKOUT_COMPLETE = (
-        "//span[@class='title' and text()='Checkout: Complete!']")
+    CHECKOUT_OVERVIEW = "//span[@class='title' and text()='Checkout: Overview']"
+    CHECKOUT_COMPLETE = "//span[@class='title' and text()='Checkout: Complete!']"
 
     # Checkout Flow Locators
     FIRST_NAME = "//input[@id='first-name']"
@@ -60,8 +56,7 @@ class Locators:
         "match any user in this service')]"
     )
     LOCKED_OUT_ERROR = (
-        "//h3[contains(text(),'Epic sadface: Sorry, this user has been "
-        "locked out.')]"
+        "//h3[contains(text(),'Epic sadface: Sorry, this user has been " "locked out.')]"
     )
 
     # SIDEBAR_LINKS
