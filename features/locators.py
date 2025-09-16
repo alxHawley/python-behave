@@ -24,7 +24,7 @@ class Locators:
     # Page Locators
     PRODUCT_PAGE = "//span[@class='title' and text()='Products']"
     CHECKOUT_PAGE = "//span[@class='title' and text()='Checkout: Your Information']"
-    CART_PAGE_TITLE = "//span[@class='title' and text()='Your Cart']"
+    CART_PAGE_TITLE = "//span[@data-test='title' and text()='Your Cart']"
     CHECKOUT_OVERVIEW = "//span[@class='title' and text()='Checkout: Overview']"
     CHECKOUT_COMPLETE = "//span[@class='title' and text()='Checkout: Complete!']"
 
@@ -43,7 +43,7 @@ class Locators:
     # PRODUCT_REMOVE = "//button[@id='remove']" # not used
 
     # Nav Locators
-    CART_ICON = "//a[@class='shopping_cart_link']"
+    CART_ICON = "//a[@data-test='shopping-cart-link']"
     # BACK_HOME = "//button[@id='back-to-products']" # not used
     # CANCEL_BUTTON = "//button[@id='cancel']" # not used
     CONTINUE_BUTTON = "//input[@id='continue']"
