@@ -57,7 +57,7 @@ def step_have_booking_details(context):
         "depositpaid": booking_data["depositpaid"].lower() == "true",
         "checkin": booking_data["checkin"],
         "checkout": booking_data["checkout"],
-        "additionalneeds": booking_data["additionalneeds"] if booking_data["additionalneeds"] != "None" else None
+        "additionalneeds": booking_data["additionalneeds"] if booking_data["additionalneeds"] not in ["None", "null", ""] else None
     }
 
 
@@ -83,7 +83,7 @@ def step_have_updated_details(context):
         "depositpaid": booking_data["depositpaid"].lower() == "true",
         "checkin": booking_data["checkin"],
         "checkout": booking_data["checkout"],
-        "additionalneeds": booking_data["additionalneeds"] if booking_data["additionalneeds"] != "None" else None
+        "additionalneeds": booking_data["additionalneeds"] if booking_data["additionalneeds"] not in ["None", "null", ""] else None
     }
 
 

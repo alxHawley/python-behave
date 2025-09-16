@@ -28,7 +28,7 @@
         "required": ["checkin", "checkout"]
       },
       "additionalneeds": {
-        "type": "string"
+        "type": ["string", "null"]
       }
     },
     "required": ["firstname", "lastname", "totalprice", "depositpaid", "bookingdates"]

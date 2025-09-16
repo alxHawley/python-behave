@@ -8,7 +8,7 @@ Feature: Hotel Booking Management
     Given I have valid booking credentials
     And I have a new hotel booking with the following details
       | firstname | lastname | totalprice | depositpaid | checkin    | checkout   | additionalneeds |
-      | John      | Doe      | 100        | true        | 2023-08-25 | 2023-08-28 | None            |
+      | John      | Doe      | 100        | true        | 2023-08-25 | 2023-08-28 | Breakfast       |
 
   @smoke @create
   Scenario: Create a new hotel booking
