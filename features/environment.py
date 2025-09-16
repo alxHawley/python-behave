@@ -19,10 +19,20 @@ def before_scenario(context, scenario):
 
         # Set Chrome options
         chrome_options = Options()
-        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--headless")  # Enable headless mode
         chrome_options.add_argument("--disable-gpu")
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--disable-web-security")
+        chrome_options.add_argument("--no-proxy-server")
+        
+        # Disable password save popup and leak detection
+        prefs = {
+            "credentials_enable_service": False,
+            "profile.password_manager_enabled": False,
+            "profile.password_manager_leak_detection": False
+        }
+        chrome_options.add_experimental_option("prefs", prefs)
 
         try:
             # Try to use webdriver_manager

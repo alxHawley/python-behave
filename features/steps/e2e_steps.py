@@ -31,10 +31,14 @@ def step_add_to_cart(context, product_name):
 @when("the user clicks on the cart icon")
 def step_click_cart(context):
     """Click on the cart icon"""
-    cart_button = WebDriverWait(context.browser, 3).until(
-        EC.presence_of_element_located((By.XPATH, Locators.CART_ICON))
+    cart_button = WebDriverWait(context.browser, 10).until(
+        EC.element_to_be_clickable((By.XPATH, Locators.CART_ICON))
     )
     cart_button.click()
+    # Wait for navigation to cart page
+    WebDriverWait(context.browser, 10).until(
+        lambda driver: "cart" in driver.current_url.lower()
+    )
 
 
 @then('the product "{product_name}" is in the cart')
