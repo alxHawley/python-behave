@@ -8,7 +8,7 @@ Feature: Hotel Booking Management
     Given I have valid booking credentials
     And I have a new hotel booking with the following details
       | firstname | lastname | totalprice | depositpaid | checkin    | checkout   | additionalneeds |
-      | John      | Doe      | 100        | true        | 2023-08-25 | 2023-08-28 | Breakfast       |
+      | John      | Doe      | 100        | true        | 2029-08-25 | 2029-08-28 | Breakfast       |
 
   @smoke @create
   Scenario: Create a new hotel booking
@@ -28,7 +28,7 @@ Feature: Hotel Booking Management
     Given a booking has been created
     And I have updated booking details
       | firstname | lastname | totalprice | depositpaid | checkin    | checkout   | additionalneeds |
-      | Jon       | Doh      | 350        | false       | 2023-08-24 | 2023-09-01 | 9 towels        |
+      | Jon       | Doh      | 350        | false       | 2029-08-24 | 2029-09-01 | 9 towels        |
     When I update the booking
     Then the booking should be updated successfully
     And I should receive the updated booking details
@@ -39,7 +39,7 @@ Feature: Hotel Booking Management
     Given a booking has been created
     And I want to update specific booking details
       | totalprice | depositpaid | checkin    | checkout   |
-      | 700        | true        | 2023-08-24 | 2023-09-15 |
+      | 700        | true        | 2029-08-24 | 2029-09-15 |
     When I partially update the booking
     Then the booking should be updated successfully
     And I should receive the updated booking details
@@ -63,4 +63,12 @@ Feature: Hotel Booking Management
     And I do not have valid authorization
     When I attempt to update the booking
     Then I should receive an unauthorized error
+
+  @error @invalid-dates
+  Scenario: Attempt to create booking with invalid dates
+    Given I have a new hotel booking with invalid dates
+      | firstname | lastname | totalprice | depositpaid | checkin    | checkout   | additionalneeds |
+      | Jane      | Smith    | 200        | true        | 2029-08-30 | 2029-08-25 | None            |
+    When I create the booking
+    Then I should receive a validation error
   

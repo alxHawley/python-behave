@@ -119,6 +119,21 @@ def step_no_authorization(context):
     context.token = None
 
 
+@given("I have a new hotel booking with invalid dates")
+def step_have_invalid_booking_dates(context):
+    """Store booking details with invalid dates from data table"""
+    booking_data = context.table[0]  # Get first row from table
+    context.booking_details = {
+        "firstname": booking_data["firstname"],
+        "lastname": booking_data["lastname"],
+        "totalprice": int(booking_data["totalprice"]),
+        "depositpaid": booking_data["depositpaid"].lower() == "true",
+        "checkin": booking_data["checkin"],
+        "checkout": booking_data["checkout"],
+        "additionalneeds": booking_data["additionalneeds"] if booking_data["additionalneeds"] not in ["None", "null", ""] else None
+    }
+
+
 # ============================================================================
 # WHEN STEPS - Actions
 # ============================================================================
@@ -311,6 +326,13 @@ def step_receive_unauthorized_error(context):
     """Verify that an unauthorized error is returned"""
     # Accept both 401 (Unauthorized) and 403 (Forbidden) as valid unauthorized responses
     assert context.response.status_code in [401, 403], f"Expected 401 or 403, got {context.response.status_code}"
+
+
+@then("I should receive a validation error")
+def step_receive_validation_error(context):
+    """Verify that a validation error is returned for invalid data"""
+    # Accept 400 (Bad Request) or 422 (Unprocessable Entity) as validation errors
+    assert context.response.status_code in [400, 422], f"Expected 400 or 422, got {context.response.status_code}: {context.response.text}"
 
 
 # ============================================================================
