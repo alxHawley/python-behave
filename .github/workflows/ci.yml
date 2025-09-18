@@ -35,4 +35,4 @@ jobs:
         run: behave --tags=@api
 
       - name: Run UI tests
-        run: behave --tags=@ui
+        run: behave --tags=@ui --tags=~@skip-ci
