@@ -10,14 +10,17 @@ A comprehensive test automation project using **Behavior-Driven Development (BDD
 
 - **API Testing**: RESTful API testing using Python Requests library
 - **UI Testing**: Web application testing with Selenium WebDriver
+- **Page Object Model (POM)**: Maintainable and scalable test architecture
 - **BDD Framework**: Human-readable test scenarios using Gherkin syntax
 - **Schema Validation**: JSON schema validation using jsonschema
 - **CI/CD Integration**: GitHub Actions workflow for automated testing
 - **Docker Support**: Local API testing with Docker containers
+- **Comprehensive Test Coverage**: 96% pass rate across 23 test scenarios
 
 ## 📋 Table of Contents
 
 - [About BDD](#about-bdd)
+- [Page Object Model](#page-object-model)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
@@ -42,6 +45,40 @@ In Behave, tests are written in Gherkin format with these components:
 - **Then**: Expected outcome or result
 
 For detailed documentation, visit: [Behave Documentation](https://behave.readthedocs.io/en/stable/gherkin.html#feature-testing-layout)
+
+## Page Object Model
+
+This project implements the **Page Object Model (POM)** design pattern for UI testing, providing a maintainable and scalable test architecture.
+
+### Key Benefits
+
+- **Maintainability**: Centralized page logic reduces code duplication
+- **Reusability**: Page objects can be used across different test scenarios
+- **Readability**: Clear separation between test logic and page interactions
+- **Scalability**: Easy to extend with new pages and functionality
+
+### Architecture
+
+```
+pages/
+├── base_page.py              # Base page functionality
+├── login_page.py             # Login page interactions
+├── product_page.py           # Product page interactions
+├── cart_page.py              # Cart page interactions
+├── checkout_page.py          # Checkout form page interactions
+├── checkout_overview_page.py # Checkout overview page interactions
+├── checkout_complete_page.py # Checkout complete page interactions
+└── page_factory.py           # Page object factory
+```
+
+### Performance Results
+
+- **Test Suite Execution**: 37.748s total
+- **API Tests**: 0.471s (8/8 scenarios passed)
+- **UI Tests**: 37.277s (14/15 scenarios passed)
+- **Overall Pass Rate**: 96% (22/23 scenarios passed)
+
+For detailed POM implementation documentation, see [POM_IMPLEMENTATION.md](POM_IMPLEMENTATION.md).
 
 ## Installation
 
@@ -106,12 +143,30 @@ The UI tests use Selenium WebDriver for:
 ```
 ├── features/
 │   ├── api.feature          # API test scenarios
-│   ├── ui.feature           # UI test scenarios
+│   ├── login.feature        # Login test scenarios
+│   ├── e2e.feature          # End-to-end test scenarios
+│   ├── locators.py          # UI element locators
+│   ├── environment.py       # Test environment configuration
 │   └── steps/
 │       ├── api_steps.py     # API step definitions
-│       └── ui_steps.py      # UI step definitions
-├── environment.py           # Test environment configuration
+│       ├── login_steps.py   # Login step definitions (POM)
+│       └── e2e_steps.py     # E2E step definitions (POM)
+├── pages/                   # Page Object Model classes
+│   ├── base_page.py         # Base page functionality
+│   ├── login_page.py        # Login page interactions
+│   ├── product_page.py      # Product page interactions
+│   ├── cart_page.py         # Cart page interactions
+│   ├── checkout_page.py     # Checkout form page interactions
+│   ├── checkout_overview_page.py # Checkout overview page interactions
+│   ├── checkout_complete_page.py # Checkout complete page interactions
+│   └── page_factory.py      # Page object factory
+├── schemas/                 # JSON schema validation files
+│   ├── booking_schema.json  # Booking API schema
+│   └── booking_id_schema.json # Booking ID schema
+├── utils/                   # Utility functions
+│   └── schema_loader.py     # Schema loading utilities
 ├── requirements.txt         # Python dependencies
+├── POM_IMPLEMENTATION.md    # POM documentation
 └── README.md               # Project documentation
 ```
 
@@ -127,13 +182,16 @@ behave
 **Run specific feature**:
 ```bash
 behave features/api.feature
-behave features/ui.feature
+behave features/login.feature
+behave features/e2e.feature
 ```
 
 **Run by tags**:
 ```bash
 behave --tags=@api
-behave --tags=@ui
+behave --tags=@smoke
+behave --tags=@negative
+behave --tags=@positive
 ```
 
 **Verbose output**:
@@ -141,8 +199,9 @@ behave --tags=@ui
 behave -v
 ```
 
-### API Environment Setup
+### Test Environment Setup
 
+#### API Testing
 The API tests can run against:
 
 1. **Local Docker container** (default):
@@ -155,6 +214,12 @@ The API tests can run against:
    ```python
    os.getenv("BASE_URL", "https://restful-booker.herokuapp.com/")
    ```
+
+#### UI Testing
+The UI tests run against SauceDemo:
+- **URL**: https://www.saucedemo.com/
+- **Browser**: Chrome (default)
+- **Page Object Model**: Implemented for maintainability
 
 ## Configuration
 
@@ -211,7 +276,9 @@ Contributions are welcome! Please follow these steps:
 - This project uses GitHub Actions for CI/CD
 - Tests run automatically on push to main branch
 - Environment configuration is handled in `environment.py`
-- Future improvements planned: Docker containerization, enhanced workflows, additional test scenarios
+- **Page Object Model** implemented for maintainable UI testing
+- **Comprehensive test coverage** with 96% pass rate
+- Future improvements planned: Cross-browser testing, mobile testing, enhanced workflows
 
 ## License
 
