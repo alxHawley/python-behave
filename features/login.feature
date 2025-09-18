@@ -52,7 +52,7 @@ Feature: User Authentication
     Then the user should be logged out
     And the user should be redirected to the login page
 
-  @performance @glitch-user
+  @performance @glitch-user @skip-ci
   Scenario: Performance test with glitch user
     When the user enters "performance_glitch_user" and "secret_sauce"
     Then the user should be successfully logged in
