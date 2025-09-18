@@ -1,140 +1,131 @@
 """
-Selenium steps for 'e2e.feature'
+E2E steps for 'e2e.feature' using Page Object Model
 """
 
 import logging
+from typing import Dict
 
 # pylint: disable=no-name-in-module
 from behave import then, when
 # pylint: enable=no-name-in-module
 
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-
-from features.locators import Locators
+from pages.page_factory import PageFactory
 
 logging.basicConfig(level=logging.INFO)
+
+
+def get_page_factory(context):
+    """Get or create PageFactory instance"""
+    if not hasattr(context, 'page_factory'):
+        context.page_factory = PageFactory(context.browser)
+    return context.page_factory
 
 
 @when('the user adds the product "{product_name}" to the cart')
 def step_add_to_cart(context, product_name):
     """Add a product to the cart"""
-    add_to_cart_button_xpath = Locators.add_to_cart_button(product_name)
-    add_product_button = WebDriverWait(context.browser, 10).until(
-        EC.presence_of_element_located((By.XPATH, add_to_cart_button_xpath))
-    )
-    add_product_button.click()
+    page_factory = get_page_factory(context)
+    product_page = page_factory.product_page
+    
+    success = product_page.add_product_to_cart(product_name)
+    assert success, f"Failed to add product '{product_name}' to cart"
 
 
 @when("the user clicks on the cart icon")
 def step_click_cart(context):
     """Click on the cart icon"""
-    cart_button = WebDriverWait(context.browser, 10).until(
-        EC.element_to_be_clickable((By.XPATH, Locators.CART_ICON))
-    )
-    cart_button.click()
-    # Wait for navigation to cart page
-    WebDriverWait(context.browser, 10).until(
-        lambda driver: "cart" in driver.current_url.lower()
-    )
+    page_factory = get_page_factory(context)
+    product_page = page_factory.product_page
+    
+    success = product_page.click_cart_icon()
+    assert success, "Failed to click cart icon or navigate to cart page"
 
 
 @then('the product "{product_name}" is in the cart')
 def step_verify_cart(context, product_name):
     """Verify that the product is in the cart"""
-    cart_item_xpath = Locators.cart_item(product_name)
-    cart_item = WebDriverWait(context.browser, 10).until(
-        EC.presence_of_element_located((By.XPATH, cart_item_xpath))
-    )
-    assert cart_item is not None, f"Item '{product_name}' not found in cart"
-    # Verify the cart page title
-    cart_title = WebDriverWait(context.browser, 10).until(
-        EC.presence_of_element_located((By.XPATH, Locators.CART_PAGE_TITLE))
-    )
-    assert cart_title.text == "Your Cart", "Incorrect page title"
+    page_factory = get_page_factory(context)
+    cart_page = page_factory.cart_page
+    
+    success = cart_page.verify_cart_contents(product_name)
+    assert success, f"Product '{product_name}' not properly verified in cart"
 
 
 @when("the user clicks checkout")
 def step_click_checkout(context):
     """Click on the checkout button"""
-    checkout_button = context.browser.find_element(
-        By.XPATH, Locators.CHECKOUT_BUTTON)
-    checkout_button.click()
+    page_factory = get_page_factory(context)
+    cart_page = page_factory.cart_page
+    
+    success = cart_page.click_checkout_button()
+    assert success, "Failed to click checkout button"
 
 
 @then("the checkout page loads")
 def step_verify_checkout(context):
     """Verify that the checkout page is displayed"""
-    try:
-        checkout_info = WebDriverWait(context.browser, 1).until(
-            EC.presence_of_element_located((By.XPATH, Locators.CHECKOUT_PAGE))
-        )
-        assert checkout_info is not None, "Checkout page not found"
-    except TimeoutException:
-        assert False, "Checkout page not found within the given time"
+    page_factory = get_page_factory(context)
+    checkout_page = page_factory.checkout_page
+    
+    success = checkout_page.verify_checkout_page()
+    assert success, "Checkout page not loaded properly"
 
 
 @when("the user enters their information")
 def step_fill_checkout(context):
     """Fill the checkout form"""
+    page_factory = get_page_factory(context)
+    checkout_page = page_factory.checkout_page
+    
+    # Convert table data to dictionary
+    checkout_data = {}
     for row in context.table:
-        first_name = context.browser.find_element(
-            By.XPATH, Locators.FIRST_NAME
-        )
-        last_name = context.browser.find_element(
-            By.XPATH, Locators.LAST_NAME
-        )
-        postal_code = context.browser.find_element(
-            By.XPATH, Locators.POSTAL_CODE
-        )
-
-        first_name.send_keys(row["First Name"])
-        last_name.send_keys(row["Last Name"])
-        postal_code.send_keys(row["Zip/Postal Code"])
+        checkout_data = {
+            "First Name": row["First Name"],
+            "Last Name": row["Last Name"],
+            "Zip/Postal Code": row["Zip/Postal Code"]
+        }
+        break  # Take first row if multiple
+    
+    success = checkout_page.fill_checkout_form(checkout_data)
+    assert success, "Failed to fill checkout form"
 
 
 @when("the user clicks continue")
 def click_continue(context):
     """Click on the continue button"""
-    continue_button = context.browser.find_element(
-        By.XPATH, Locators.CONTINUE_BUTTON
-    )
-    continue_button.click()
+    page_factory = get_page_factory(context)
+    checkout_page = page_factory.checkout_page
+    
+    success = checkout_page.click_continue_button()
+    assert success, "Failed to click continue button"
 
 
 @then("the checkout overview page loads")
 def step_verify_overview(context):
     """Verify that the overview page is displayed"""
-    assert (
-        "https://www.saucedemo.com/checkout-step-two.html"
-        in context.browser.current_url
-    ), "Not on the overview page"
-    # Verify the overview page title
-    overview_title = (
-        context.browser.find_element(By.XPATH, Locators.CHECKOUT_OVERVIEW))
-    assert overview_title.text == "Checkout: Overview", "Incorrect page title"
+    page_factory = get_page_factory(context)
+    checkout_overview_page = page_factory.checkout_overview_page
+    
+    success = checkout_overview_page.verify_overview_page()
+    assert success, "Checkout overview page not loaded properly"
 
 
 @when("the user clicks finish")
 def step_click_finish(context):
     """Click on the finish button"""
-    finish_button = (
-        context.browser.find_element(By.XPATH, Locators.FINISH_BUTTON))
-    finish_button.click()
+    page_factory = get_page_factory(context)
+    checkout_overview_page = page_factory.checkout_overview_page
+    
+    success = checkout_overview_page.click_finish_button()
+    assert success, "Failed to click finish button"
 
 
 @then("the confirmation page loads")
 def step_verify_confirmation(context):
     """Verify that the confirmation page is displayed"""
-    assert (
-        "https://www.saucedemo.com/checkout-complete.html"
-        in context.browser.current_url
-    ), "Not on the confirmation page"
-    # Verify the confirmation page title
-    confirmation_title = context.browser.find_element(
-        By.XPATH, Locators.CHECKOUT_COMPLETE
-    )
-    assert confirmation_title.text == "Checkout: Complete!", \
-        "Incorrect page title"
+    page_factory = get_page_factory(context)
+    checkout_complete_page = page_factory.checkout_complete_page
+    
+    success = checkout_complete_page.verify_complete_page()
+    assert success, "Checkout complete page not loaded properly"

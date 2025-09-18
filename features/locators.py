@@ -50,14 +50,14 @@ class Locators:
     # CON_SHOPPING_BUTTON = "//button[@id='continue-shopping']" # not used
     REACT_BURGER = "//button[@id='react-burger-menu-btn']"
 
-    # ERROR_MESSAGES
-    UN_PW_ERROR = (
-        "//h3[contains(text(),'Epic sadface: Username and password do not "
-        "match any user in this service')]"
-    )
-    LOCKED_OUT_ERROR = (
-        "//h3[contains(text(),'Epic sadface: Sorry, this user has been " "locked out.')]"
-    )
+    # ERROR_MESSAGES - Using data-test="error" attribute for better reliability
+    UN_PW_ERROR = "//h3[@data-test='error' and contains(text(),'Epic sadface: Username and password do not match any user in this service')]"
+    LOCKED_OUT_ERROR = "//h3[@data-test='error' and contains(text(),'Epic sadface: Sorry, this user has been locked out.')]"
+    USERNAME_REQUIRED_ERROR = "//h3[@data-test='error' and contains(text(),'Epic sadface: Username is required')]"
+    PASSWORD_REQUIRED_ERROR = "//h3[@data-test='error' and contains(text(),'Epic sadface: Password is required')]"
+    
+    # Generic error message container - using h3 with data-test="error"
+    ERROR_MESSAGE_CONTAINER = "//h3[@data-test='error']"
 
     # SIDEBAR_LINKS
     LOGOUT = "//a[@id='logout_sidebar_link']"
